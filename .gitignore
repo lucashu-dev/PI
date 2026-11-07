@@ -1,10 +1,8 @@
-# Binários e arquivos objeto compilados
+# Arquivos objeto e bibliotecas intermediárias
 *.o
 *.obj
-sistema
-sistema.exe
 
-# Bancos de dados locais e journals gerados dinamicamente
+# Bancos de dados locais e journals gerados em tempo de execução
 *.db
 *.db-journal
 database/*.db
@@ -16,7 +14,9 @@ database/*.db-journal
 *.swp
 *~
 
-# Arquivos de depuração e profilings
+# Logs e despejos de memória
+*.log
+*.tmp
 *.dSYM/
 gmon.out
 core
