@@ -155,7 +155,7 @@ void sistema_alterar_produto(void) {
 
     Produto *p = &catalogo.itens[idx];
     printf("\n[DADOS ATUAIS]:\n");
-    exhibir_cabecalho_tabela();
+    exibir_cabecalho_tabela();
     exibir_linha_produto(p);
     printf("--------------------------------------------------------------------------------------------\n");
 
@@ -204,7 +204,7 @@ void sistema_excluir_produto(void) {
     }
 
     printf("\nRegistro localizado:\n");
-    exhibir_cabecalho_tabela();
+    exibir_cabecalho_tabela();
     exibir_linha_produto(&catalogo.itens[idx]);
     printf("--------------------------------------------------------------------------------------------\n");
 
@@ -243,7 +243,7 @@ void sistema_listar_produtos(void) {
         return;
     }
 
-    exhibir_cabecalho_tabela();
+    exibir_cabecalho_tabela();
     for (int i = 0; i < catalogo.total; i++) {
         exibir_linha_produto(&catalogo.itens[i]);
     }
@@ -281,7 +281,7 @@ void sistema_pesquisar_por_codigo(void) {
 
     if (idx != -1) {
         printf("\n[SUCESSO] Produto localizado no índice [%d] da memória RAM:\n", idx);
-        exhibir_cabecalho_tabela();
+        exibir_cabecalho_tabela();
         exibir_linha_produto(&catalogo.itens[idx]);
         printf("--------------------------------------------------------------------------------------------\n");
         printf("Descrição completa: %s\n", catalogo.itens[idx].descricao);
@@ -312,7 +312,7 @@ void sistema_pesquisar_por_nome(void) {
 
     if (encontrados > 0) {
         printf("\n[SUCESSO] %d produto(s) correspondente(s) encontrado(s) via Busca Linear:\n", encontrados);
-        exhibir_cabecalho_tabela();
+        exibir_cabecalho_tabela();
         for (int i = 0; i < encontrados; i++) {
             exibir_linha_produto(&catalogo.itens[indices[i]]);
         }
@@ -369,7 +369,7 @@ void sistema_ordenar_produtos(void) {
     }
 
     // Exibe o resultado imediatamente
-    exhibir_cabecalho_tabela();
+    exibir_cabecalho_tabela();
     for (int i = 0; i < catalogo.total; i++) {
         exibir_linha_produto(&catalogo.itens[i]);
     }
@@ -461,7 +461,7 @@ void sistema_alerta_estoque_baixo(void) {
     printf("============================================================================================\n");
 
     int criticos = 0;
-    exhibir_cabecalho_tabela();
+    exibir_cabecalho_tabela();
 
     for (int i = 0; i < catalogo.total; i++) {
         if (catalogo.itens[i].quantidade <= catalogo.itens[i].estoque_minimo) {
