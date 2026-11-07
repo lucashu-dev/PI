@@ -1,0 +1,22 @@
+# Binários e arquivos objeto compilados
+*.o
+*.obj
+sistema
+sistema.exe
+
+# Bancos de dados locais e journals gerados dinamicamente
+*.db
+*.db-journal
+database/*.db
+database/*.db-journal
+
+# Diretórios de IDEs e editores
+.vscode/
+.idea/
+*.swp
+*~
+
+# Arquivos de depuração e profilings
+*.dSYM/
+gmon.out
+core
