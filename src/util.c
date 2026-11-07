@@ -22,9 +22,9 @@ int ler_inteiro_seguro(const char *mensagem, int *saida, int min, int max) {
         // Remover newline
         buffer[strcspn(buffer, "\r\n")] = '\0';
 
-        // Linha vazia não é aceita
+        // Linha vazia nao e aceita
         if (strlen(buffer) == 0) {
-            printf("[ERRO] Entrada não pode ser vazia. Tente novamente.\n");
+            printf("[ERRO] Entrada nao pode ser vazia. Tente novamente.\n");
             continue;
         }
 
@@ -32,7 +32,7 @@ int ler_inteiro_seguro(const char *mensagem, int *saida, int min, int max) {
 
         // Validar se toda a string foi convertida
         if (endptr == buffer || *endptr != '\0') {
-            printf("[ERRO] Valor numérico inválido. Digite apenas dígitos inteiros.\n");
+            printf("[ERRO] Valor numerico invalido. Digite apenas digitos inteiros.\n");
             continue;
         }
 
@@ -64,11 +64,11 @@ int ler_double_seguro(const char *mensagem, double *saida, double min, double ma
         buffer[strcspn(buffer, "\r\n")] = '\0';
 
         if (strlen(buffer) == 0) {
-            printf("[ERRO] Entrada não pode ser vazia. Tente novamente.\n");
+            printf("[ERRO] Entrada nao pode ser vazia. Tente novamente.\n");
             continue;
         }
 
-        // Suporte a vírgula como separador decimal (padrão brasileiro)
+        // Suporte a virgula como separador decimal (padrao brasileiro)
         for (size_t i = 0; i < strlen(buffer); i++) {
             if (buffer[i] == ',') {
                 buffer[i] = '.';
@@ -78,7 +78,7 @@ int ler_double_seguro(const char *mensagem, double *saida, double min, double ma
         valor = strtod(buffer, &endptr);
 
         if (endptr == buffer || *endptr != '\0') {
-            printf("[ERRO] Valor decimal inválido. Utilize ponto ou vírgula.\n");
+            printf("[ERRO] Valor decimal invalido. Utilize ponto ou virgula.\n");
             continue;
         }
 
@@ -106,7 +106,7 @@ void ler_string_segura(const char *mensagem, char *destino, size_t tamanho) {
         destino[strcspn(destino, "\r\n")] = '\0';
 
         if (strlen(destino) == 0) {
-            printf("[ERRO] O campo não pode ficar em branco. Digite novamente.\n");
+            printf("[ERRO] O campo nao pode ficar em branco. Digite novamente.\n");
             continue;
         }
         break;
@@ -127,7 +127,7 @@ int confirmar_acao(const char *mensagem) {
         if (c == 'S') return 1;
         if (c == 'N') return 0;
 
-        printf("[AVISO] Opção inválida. Digite 'S' para Sim ou 'N' para Não.\n");
+        printf("[AVISO] Opcao invalida. Digite 'S' para Sim ou 'N' para Nao.\n");
     }
 }
 

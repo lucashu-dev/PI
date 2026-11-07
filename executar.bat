@@ -1,7 +1,8 @@
 @echo off
+chcp 65001 >nul
 setlocal
 cd /d "%~dp0"
-title Sistema de Controle de Estoque - Engenharia da Computação 2026
+title Sistema de Controle de Estoque - Engenharia da Computacao 2026
 
 echo ===================================================================
 echo   SISTEMA DE CONTROLE DE ESTOQUE - ENGENHARIA DA COMPUTACAO 2026

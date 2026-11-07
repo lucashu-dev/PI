@@ -16,7 +16,7 @@ int banco_inicializar(const char *caminho_banco) {
         return 0;
     }
 
-    // Ativar verificação de chaves estrangeiras
+    // Ativar verificacao de chaves estrangeiras
     char *err_msg = NULL;
     rc = sqlite3_exec(db, "PRAGMA foreign_keys = ON;", NULL, NULL, &err_msg);
     if (rc != SQLITE_OK) {
@@ -24,7 +24,7 @@ int banco_inicializar(const char *caminho_banco) {
         sqlite3_free(err_msg);
     }
 
-    // DDL para inicialização do Schema
+    // DDL para inicializacao do Schema
     const char *sql_schema =
         "CREATE TABLE IF NOT EXISTS produtos ("
         "   codigo INTEGER PRIMARY KEY,"
@@ -81,7 +81,7 @@ int banco_carregar_produtos(Produto *vetor, int *total, int max_capacidade) {
     int count = 0;
     while ((rc = sqlite3_step(stmt)) == SQLITE_ROW) {
         if (count >= max_capacidade) {
-            fprintf(stderr, "[AVISO] Capacidade máxima de produtos em memória atingida (%d).\n", max_capacidade);
+            fprintf(stderr, "[AVISO] Capacidade maxima de produtos em memoria atingida (%d).\n", max_capacidade);
             break;
         }
 
@@ -136,7 +136,7 @@ int banco_inserir_produto(const Produto *p) {
     sqlite3_finalize(stmt);
 
     if (rc != SQLITE_DONE) {
-        fprintf(stderr, "[ERRO BANCO] Falha na execução do INSERT (Código duplicado ou violação de restrição): %s\n", sqlite3_errmsg(db));
+        fprintf(stderr, "[ERRO BANCO] Falha na execucao do INSERT (Codigo duplicado ou violacao de restricao): %s\n", sqlite3_errmsg(db));
         return 0;
     }
 
@@ -198,12 +198,12 @@ int banco_registrar_movimentacao_transacional(int codigo_produto, TipoMovimentac
     char *err_msg = NULL;
     int rc = sqlite3_exec(db, "BEGIN TRANSACTION;", NULL, NULL, &err_msg);
     if (rc != SQLITE_OK) {
-        fprintf(stderr, "[ERRO TRANSACAO] Falha ao iniciar transação: %s\n", err_msg);
+        fprintf(stderr, "[ERRO TRANSACAO] Falha ao iniciar transacao: %s\n", err_msg);
         sqlite3_free(err_msg);
         return 0;
     }
 
-    // 1. Inserir histórico na tabela movimentacoes
+    // 1. Inserir historico na tabela movimentacoes
     const char *sql_mov = "INSERT INTO movimentacoes (codigo_produto, tipo, quantidade, data_hora, observacao) "
                           "VALUES (?, ?, ?, ?, ?);";
     sqlite3_stmt *stmt_mov = NULL;
@@ -237,13 +237,13 @@ int banco_registrar_movimentacao_transacional(int codigo_produto, TipoMovimentac
     int rc_prod = sqlite3_step(stmt_prod);
     sqlite3_finalize(stmt_prod);
 
-    // Validação da transação atômica
+    // Validacao da transacao atomica
     if (rc_mov == SQLITE_DONE && rc_prod == SQLITE_DONE) {
         sqlite3_exec(db, "COMMIT;", NULL, NULL, NULL);
         return 1;
     } else {
         sqlite3_exec(db, "ROLLBACK;", NULL, NULL, NULL);
-        fprintf(stderr, "[ERRO TRANSACAO] Falha na operação atômica. ROLLBACK executado com sucesso.\n");
+        fprintf(stderr, "[ERRO TRANSACAO] Falha na operacao atomica. ROLLBACK executado com sucesso.\n");
         return 0;
     }
 }
@@ -258,7 +258,7 @@ int banco_carregar_matriz_movimentacoes(int ano, int matriz[MAX_PRODUTOS][MESES_
         }
     }
 
-    // Consulta para extrair mês e quantidade de movimentações filtradas pelo ano
+    // Consulta para extrair mes e quantidade de movimentacoes filtradas pelo ano
     const char *sql = "SELECT codigo_produto, CAST(strftime('%m', data_hora) AS INTEGER) AS mes, "
                       "tipo, quantidade FROM movimentacoes WHERE CAST(strftime('%Y', data_hora) AS INTEGER) = ?;";
     sqlite3_stmt *stmt = NULL;
@@ -282,7 +282,7 @@ int banco_carregar_matriz_movimentacoes(int ano, int matriz[MAX_PRODUTOS][MESES_
         // Localizar a linha correspondente ao produto no array em RAM
         for (int i = 0; i < total_produtos; i++) {
             if (produtos[i].codigo == codigo) {
-                // Fluxo líquido: Entrada adiciona, Saída subtrai
+                // Fluxo liquido: Entrada adiciona, Saida subtrai
                 if (tipo == MOV_ENTRADA) {
                     matriz[i][mes - 1] += qtd;
                 } else {
@@ -319,7 +319,7 @@ int banco_listar_historico_movimentacoes(int codigo_filtro) {
     }
 
     if (rc != SQLITE_OK) {
-        fprintf(stderr, "[ERRO BANCO] Falha ao consultar histórico: %s\n", sqlite3_errmsg(db));
+        fprintf(stderr, "[ERRO BANCO] Falha ao consultar historico: %s\n", sqlite3_errmsg(db));
         return 0;
     }
 
@@ -338,7 +338,7 @@ int banco_listar_historico_movimentacoes(int codigo_filtro) {
         const unsigned char *data = sqlite3_column_text(stmt, 5);
         const unsigned char *obs = sqlite3_column_text(stmt, 6);
 
-        const char *tipo_str = (tipo == MOV_ENTRADA) ? "ENTRADA" : "SAÍDA";
+        const char *tipo_str = (tipo == MOV_ENTRADA) ? "ENTRADA" : "SAIDA";
 
         printf("%-5d | %-8d | %-24.24s | %-8s | %-5d | %-19s | %-20.20s\n",
                id, cod, nome ? (const char *)nome : "N/D",
