@@ -124,10 +124,3 @@ make sanitize
 ---
 
 ---
-
-## 📚 7. Referências Utilizadas na Pesquisa
-1. **KERNIGHAN, Brian W.; RITCHIE, Dennis M.** *C: A Linguagem de Programação (Padrão ANSI)*. Campus, 1989.
-2. **CORMEN, Thomas H. et al.** *Algoritmos: Teoria e Prática*. 3ª Edição. Elsevier, 2012.
-3. **OWENS, Mike; ALLEN, Grant.** *The Definitive Guide to SQLite*. 2ª Edição. Apress, 2010.
-4. **SQLITE CONSORTIUM.** *An Introduction To The SQLite C/C++ Interface*. Disponível em: <https://www.sqlite.org/cintro.html>. Acesso em: 2026.
-5. **ISO/IEC 9899:2011.** *Information technology — Programming languages — C (C11 Standard)*.
