@@ -2,8 +2,8 @@
 
 **Disciplina:** Algoritmos e Programação II  
 **Curso:** Engenharia da Computação — 2º Semestre de 2026  
-**Linguagem:** C (Padrão ISO C11)  
-**Persistência:** SQLite3 (Driver Nativo C)  
+**Linguagem:** C 
+**Persistência:** SQLite3 
 **Modalidade:** Projeto Prático em Grupo  
 **Data Limite de Entrega:** 18/11/2026  
 
@@ -12,7 +12,10 @@
 ## 👥 1. Identificação do Projeto e Integrantes
 - **Nome do Projeto:** Sistema Modular de Controle de Estoque e Análise Matricial
 - **Integrantes:**
-  - *Lucas e Equipe de Engenharia da Computação*
+  - *Lucas Hu 107779981
+  - igor garcia 10771951
+  - giuseppe 10771826
+  - thiago 10772947 *
 
 ---
 
