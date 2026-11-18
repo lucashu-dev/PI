@@ -123,25 +123,9 @@ make sanitize
 
 ---
 
-## 📊 7. Matriz de Rastreabilidade e Cobertura da Rubrica (10,0 / 10,0)
-
-| Critério de Avaliação | Peso | Arquivo (.c/.h) | Função Responsável | Evidência de Implementação | Status |
-| :--- | :---: | :--- | :--- | :--- | :---: |
-| **Organização e Modularização** | 1,0 | `src/sistema.c` / `main.c` | `inicializar_sistema()` | Separação estrita em `include/` e `src/`, sem sobrecarga na `main()` | **[VALIDADO]** |
-| **Structs e Arrays de Structs** | 1,5 | `include/modelos.h` | `struct Produto` / `CatalogoProdutos` | Manipulação em memória RAM via array contíguo de structs | **[VALIDADO]** |
-| **Ponteiros e Passagem por Referência** | 1,0 | `src/util.c` | `atualizar_estoque()` | Alteração direta de saldo por ponteiro de struct | **[VALIDADO]** |
-| **Busca Linear Manual** | 0,75 | `src/algoritmos.c` | `busca_linear_nome()` | Varredura sequencial manual em RAM com busca por substring | **[VALIDADO]** |
-| **Busca Binária Manual** | 1,25 | `src/algoritmos.c` | `busca_binaria_codigo()` | Divisão e conquista O(log n) sem uso de `bsearch()` | **[VALIDADO]** |
-| **Ordenação Manual em C** | 1,5 | `src/algoritmos.c` | `ordenar_insertion()` | Insertion Sort (e Bubble/Selection) manuais sem `qsort()` | **[VALIDADO]** |
-| **Matriz de Processamento 2D** | 0,5 | `src/sistema.c` | `sistema_matriz_movimentacoes_mensais()` | Matriz bidimensional Produtos x 12 Meses | **[VALIDADO]** |
-| **Persistência Real SQLite3** | 1,5 | `src/banco.c` | `banco_inserir_produto()` | Consultas parametrizadas e transações atômicas ACID | **[VALIDADO]** |
-| **Validações e Tratamento de Entrada** | 0,5 | `src/util.c` | `ler_inteiro_seguro()` | Proteção contra falhas de buffer com `fgets()` e `strtol()` | **[VALIDADO]** |
-| **Apresentação e Roteiro de Defesa** | 0,5 | `docs/apresentacao.md` | Roteiro Q&A Oficial | 14 questões técnicas completas com respostas argumentadas | **[VALIDADO]** |
-| **TOTAL** | **10,0** | - | - | **Cobertura Integral da Rubrica Oficial** | **[10,0/10,0]** |
-
 ---
 
-## 📚 8. Referências Utilizadas na Pesquisa
+## 📚 7. Referências Utilizadas na Pesquisa
 1. **KERNIGHAN, Brian W.; RITCHIE, Dennis M.** *C: A Linguagem de Programação (Padrão ANSI)*. Campus, 1989.
 2. **CORMEN, Thomas H. et al.** *Algoritmos: Teoria e Prática*. 3ª Edição. Elsevier, 2012.
 3. **OWENS, Mike; ALLEN, Grant.** *The Definitive Guide to SQLite*. 2ª Edição. Apress, 2010.
