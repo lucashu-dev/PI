@@ -13,7 +13,7 @@
 - **Nome do Projeto:** Sistema Modular de Controle de Estoque e Análise Matricial
 - **Integrantes:**
   - *Lucas Hu 107779981
-  - igor garcia 10771951
+  - Igor Garcia I Sen Chen  10771951
   - giuseppe 10771826
   - thiago 10772947 *
 
