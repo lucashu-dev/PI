@@ -14,8 +14,8 @@
 - **Integrantes:**
   - *Lucas Hu 107779981
   - Igor Garcia I Sen Chen  10771951
-  - giuseppe 10771826
-  - thiago 10772947 *
+  - Giuseppe Enrico Ferraro  10771826
+  - Thiago Sales Terra  10772947 *
 
 ---
 
