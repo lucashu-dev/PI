@@ -1,9 +1,9 @@
 # Sistema de Controle de Estoque — Projeto Integrador 2026
 
 **Disciplina:** Algoritmos e Programação II  
-**Curso:** Engenharia da Computação — 2º Semestre
-**Linguagem:** C 
-**Persistência:** SQLite3 
+**Curso:** Engenharia da Computação – 2º Semestre  
+**Linguagem:** C  
+**Persistência:** SQLite3  
 **Modalidade:** Projeto Prático em Grupo  
 **Data Limite de Entrega:** 20/11/2026
 
