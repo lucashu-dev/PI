@@ -37,9 +37,9 @@ void inicializar_sistema(void) {
     catalogo.total = 0;
     memset(catalogo.itens, 0, sizeof(catalogo.itens));
 
-    printf("========================================================\n");
-    printf("  SISTEMA DE CONTROLE DE ESTOQUE - ENGENHARIA 2026      \n");
-    printf("========================================================\n");
+    printf("===================================================================\n");
+    printf("     SISTEMA DE CONTROLE DE ESTOQUE – ENGENHARIA DA COMPUTAÇÃO     \n");
+    printf("===================================================================\n\n");
     printf("[SISTEMA] Conectando ao banco SQLite: %s...\n", CAMINHO_BANCO);
 
     if (!banco_inicializar(CAMINHO_BANCO)) {
@@ -599,27 +599,27 @@ void menu_principal(void) {
     while (opcao != 0) {
         limpar_tela();
         printf("===================================================================\n");
-        printf("         SISTEMA DE CONTROLE DE ESTOQUE - ENGENHARIA DA COMPUTAÇÃO \n");
-        printf("===================================================================\n");
-        printf("  [CADASTRO & GERENCIAMENTO]\n");
+        printf("     SISTEMA DE CONTROLE DE ESTOQUE – ENGENHARIA DA COMPUTAÇÃO     \n");
+        printf("===================================================================\n\n");
+        printf("  [CADASTRO & GERENCIAMENTO]\n\n");
         printf("    1. Cadastrar Novo Produto\n");
         printf("    2. Alterar Dados de Produto\n");
         printf("    3. Excluir Produto\n");
         printf("    4. Listar Todos os Produtos em Estoque\n\n");
-        printf("  [ALGORITMOS EM MEMÓRIA RAM (DISCIPLINA)]\n");
+        printf("  [ALGORITMOS EM MEMÓRIA RAM (DISCIPLINA)]\n\n");
         printf("    5. Pesquisar Produto por Código  [Busca Binária Manual O(log n)]\n");
         printf("    6. Pesquisar Produto por Nome    [Busca Linear Manual O(n)]\n");
         printf("    7. Ordenar Produtos Manualmente  [Insertion / Bubble / Selection]\n\n");
-        printf("  [MOVIMENTAÇÕES & INDICADORES]\n");
+        printf("  [MOVIMENTAÇÕES & INDICADORES]\n\n");
         printf("    8. Registrar Entrada / Saída de Estoque (Transacional SQLite)\n");
         printf("    9. Relatório de Produtos com Baixo Estoque (Alerta)\n");
         printf("   10. Calcular Valor Total e Indicadores Financeiros\n");
         printf("   11. Matriz 2D de Movimentações Mensais (Produtos x 12 Meses)\n");
         printf("   12. Consultar Histórico de Movimentações / Auditoria\n\n");
-        printf("    0. Sair do Sistema\n");
-        printf("===================================================================\n");
+        printf("    0. Sair do Sistema\n\n");
+        printf("===================================================================\n\n");
 
-        if (!ler_inteiro_seguro("Escolha uma opção (0-12): ", &opcao, 0, 12)) {
+        if (!ler_inteiro_seguro("Escolha uma opção (0 - 12): ", &opcao, 0, 12)) {
             continue;
         }
 
