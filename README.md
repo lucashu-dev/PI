@@ -1,21 +1,21 @@
 # Sistema de Controle de Estoque — Projeto Integrador 2026
 
 **Disciplina:** Algoritmos e Programação II  
-**Curso:** Engenharia da Computação — 2º Semestre de 2026  
+**Curso:** Engenharia da Computação — 2º Semestre
 **Linguagem:** C 
 **Persistência:** SQLite3 
 **Modalidade:** Projeto Prático em Grupo  
-**Data Limite de Entrega:** 18/11/2026  
+**Data Limite de Entrega:** 20/11/2026
 
 ---
 
 ## 👥 1. Identificação do Projeto e Integrantes
 - **Nome do Projeto:** Sistema Modular de Controle de Estoque e Análise Matricial
 - **Integrantes:**
-  - *Lucas Hu 107779981
-  - Igor Garcia I Sen Chen  10771951
-  - Giuseppe Enrico Ferraro  10771826
-  - Thiago Sales Terra  10772947 *
+  - Lucas Hu – 107779981
+  - Igor Garcia I Sen Chen – 10771951
+  - Giuseppe Enrico Ferraro – 10771826
+  - Thiago Sales Terra – 10772947
 
 ---
 
