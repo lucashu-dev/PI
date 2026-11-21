@@ -16,14 +16,14 @@ static CatalogoProdutos catalogo;
 static const char *CAMINHO_BANCO = "database/estoque.db";
 
 static void exibir_cabecalho_tabela(void) {
-    printf("\n%-6s | %-24s | %-14s | %-10s | %-8s | %-8s | %-12s\n",
+    printf("\n%-6s | %-24s | %-14s | %-10s | %-8s | %-14s | %-15s\n",
            "CÓDIGO", "NOME", "CATEGORIA", "PREÇO(R$)", "ESTOQUE", "ESTOQUE MÍNIMO", "STATUS");
     printf("--------------------------------------------------------------------------------------------\n");
 }
 
 static void exibir_linha_produto(const Produto *p) {
     const char *status = (p->quantidade <= p->estoque_minimo) ? "[ALERTA: BAIXO]" : "NORMAL";
-    printf("%-6d | %-24.24s | %-14.14s | %10.2f | %8d | %8d | %-12s\n",
+    printf("%-6d | %-24.24s | %-14.14s | %-10.2f | %-8d | %-14d | %-15s\n",
            p->codigo, p->nome, p->categoria, p->preco, p->quantidade, p->estoque_minimo, status);
 }
 
@@ -67,9 +67,9 @@ void finalizar_sistema(void) {
 
 void sistema_cadastrar_produto(void) {
     limpar_tela();
-    printf("========================================================\n");
-    printf("                CADASTRAR NOVO PRODUTO                 \n");
-    printf("========================================================\n");
+    printf("======================================================\n");
+    printf("                CADASTRAR NOVO PRODUTO                \n");
+    printf("======================================================\n\n");
 
     if (catalogo.total >= MAX_PRODUTOS) {
         printf("[ERRO] Capacidade máxima atingida (%d produtos).\n", MAX_PRODUTOS);
@@ -138,8 +138,8 @@ void sistema_cadastrar_produto(void) {
 void sistema_alterar_produto(void) {
     limpar_tela();
     printf("========================================================\n");
-    printf("                  ALTERAR DADOS DE PRODUTO              \n");
-    printf("========================================================\n");
+    printf("                ALTERAR DADOS DE PRODUTO                \n");
+    printf("========================================================\n\n");
 
     if (catalogo.total == 0) {
         printf("[AVISO] O estoque está vazio. Nenhum produto para alterar.\n");
@@ -188,9 +188,9 @@ void sistema_alterar_produto(void) {
 
 void sistema_excluir_produto(void) {
     limpar_tela();
-    printf("========================================================\n");
-    printf("                   EXCLUIR PRODUTO                      \n");
-    printf("========================================================\n");
+    printf("=======================================================\n");
+    printf("                    EXCLUIR PRODUTO                    \n");
+    printf("=======================================================\n\n");
 
     if (catalogo.total == 0) {
         printf("[AVISO] Nenhum produto cadastrado.\n");
@@ -246,7 +246,7 @@ void sistema_listar_produtos(void) {
     limpar_tela();
     printf("============================================================================================\n");
     printf("                            LISTAGEM GERAL DE PRODUTOS EM ESTOQUE                           \n");
-    printf("============================================================================================\n");
+    printf("============================================================================================\n\n");
 
     if (catalogo.total == 0) {
         printf("[AVISO] Nenhum produto cadastrado no catálogo.\n");
@@ -267,8 +267,8 @@ void sistema_listar_produtos(void) {
 void sistema_pesquisar_por_codigo(void) {
     limpar_tela();
     printf("========================================================\n");
-    printf("      PESQUISAR PRODUTO POR CÓDIGO (BUSCA BINÁRIA)       \n");
-    printf("========================================================\n");
+    printf("      PESQUISAR PRODUTO POR CÓDIGO (BUSCA BINÁRIA)      \n");
+    printf("========================================================\n\n");
 
     if (catalogo.total == 0) {
         printf("[AVISO] Nenhum produto cadastrado.\n");
@@ -305,9 +305,9 @@ void sistema_pesquisar_por_codigo(void) {
 
 void sistema_pesquisar_por_nome(void) {
     limpar_tela();
-    printf("========================================================\n");
-    printf("       PESQUISAR PRODUTO POR NOME (BUSCA LINEAR)        \n");
-    printf("========================================================\n");
+    printf("=========================================================\n");
+    printf("        PESQUISAR PRODUTO POR NOME (BUSCA LINEAR)        \n");
+    printf("=========================================================\n\n");
 
     if (catalogo.total == 0) {
         printf("[AVISO] Estoque vazio. Nenhum produto cadastrado.\n");
@@ -337,9 +337,9 @@ void sistema_pesquisar_por_nome(void) {
 
 void sistema_ordenar_produtos(void) {
     limpar_tela();
-    printf("========================================================\n");
-    printf("            ORDENAÇÃO MANUAL DE PRODUTOS EM RAM         \n");
-    printf("========================================================\n");
+    printf("=======================================================\n");
+    printf("          ORDENAÇÃO MANUAL DE PRODUTOS EM RAM          \n");
+    printf("=======================================================\n\n");
 
     if (catalogo.total <= 1) {
         printf("[AVISO] Registros insuficientes para ordenação (%d produtos).\n", catalogo.total);
@@ -391,9 +391,9 @@ void sistema_ordenar_produtos(void) {
 
 void sistema_registrar_movimentacao(void) {
     limpar_tela();
-    printf("========================================================\n");
-    printf("         REGISTRAR MOVIMENTAÇÃO DE ESTOQUE              \n");
-    printf("========================================================\n");
+    printf("=========================================================\n");
+    printf("            REGISTRAR MOVIMENTAÇÃO DE ESTOQUE            \n");
+    printf("=========================================================\n\n");
 
     if (catalogo.total == 0) {
         printf("[AVISO] Estoque vazio. Cadastre produtos antes de movimentar.\n");
@@ -467,9 +467,9 @@ void sistema_registrar_movimentacao(void) {
 
 void sistema_alerta_estoque_baixo(void) {
     limpar_tela();
-    printf("============================================================================================\n");
-    printf("                     ALERTA: PRODUTOS COM BAIXO ESTOQUE (<= ESTOQUE MÍNIMO)                 \n");
-    printf("============================================================================================\n");
+    printf("==========================================================================================\n");
+    printf("                  ALERTA: PRODUTOS COM BAIXO ESTOQUE (<= ESTOQUE MÍNIMO)                  \n");
+    printf("==========================================================================================\n\n");
 
     int criticos = 0;
     exibir_cabecalho_tabela();
@@ -495,7 +495,7 @@ void sistema_calcular_valor_total(void) {
     limpar_tela();
     printf("========================================================\n");
     printf("          VALOR TOTAL E INDICADORES DO ESTOQUE          \n");
-    printf("========================================================\n");
+    printf("========================================================\n\n");
 
     double valor_total = 0.0;
     long total_unidades = 0;
@@ -518,9 +518,9 @@ void sistema_calcular_valor_total(void) {
 
 void sistema_matriz_movimentacoes_mensais(void) {
     limpar_tela();
-    printf("====================================================================================================\n");
-    printf("                  MATRIZ 2D DE MOVIMENTAÇÃO POR PERÍODO (PRODUTOS X 12 MESES)                      \n");
-    printf("====================================================================================================\n");
+    printf("===================================================================================================\n");
+    printf("                    MATRIZ 2D DE MOVIMENTAÇÃO POR PERÍODO (PRODUTOS X 12 MESES)                    \n");
+    printf("===================================================================================================\n\n");
 
     if (catalogo.total == 0) {
         printf("[AVISO] Nenhum produto em estoque para processamento matricial.\n");
@@ -575,8 +575,8 @@ void sistema_matriz_movimentacoes_mensais(void) {
 void sistema_historico_movimentacoes(void) {
     limpar_tela();
     printf("========================================================================================================\n");
-    printf("                              CONSULTA DE HISTÓRICO DE MOVIMENTAÇÕES (AUDITORIA)                        \n");
-    printf("========================================================================================================\n");
+    printf("                           CONSULTA DE HISTÓRICO DE MOVIMENTAÇÕES (AUDITORIA)                           \n");
+    printf("========================================================================================================\n\n");
 
     printf("Opções de Consulta:\n");
     printf("  1. Ver histórico de um produto específico\n");
