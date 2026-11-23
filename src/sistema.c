@@ -39,18 +39,18 @@ void inicializar_sistema(void) {
 
     printf("===================================================================\n");
     printf("     SISTEMA DE CONTROLE DE ESTOQUE – ENGENHARIA DA COMPUTAÇÃO     \n");
-    printf("===================================================================\n\n");
-    printf("[SISTEMA] Conectando ao banco SQLite: %s...\n", CAMINHO_BANCO);
+    printf("===================================================================\n");
+    printf("\n[SISTEMA] Conectando ao banco SQLite: %s...\n", CAMINHO_BANCO);
 
     if (!banco_inicializar(CAMINHO_BANCO)) {
-        printf("[FATAL] Não foi possível inicializar o banco de dados. Encerrando...\n");
+        printf("\n[FATAL] Não foi possível inicializar o banco de dados. Encerrando...\n");
         exit(EXIT_FAILURE);
     }
 
     if (!banco_carregar_produtos(catalogo.itens, &catalogo.total, MAX_PRODUTOS)) {
-        printf("[AVISO] Falha ao sincronizar dados do SQLite para a memória RAM.\n");
+        printf("\n[AVISO] Falha ao sincronizar dados do SQLite para a memória RAM.\n");
     } else {
-        printf("[SUCESSO] %d produtos carregados do SQLite para a memória RAM.\n", catalogo.total);
+        printf("\n[SUCESSO] %d produtos carregados do SQLite para a memória RAM.\n", catalogo.total);
     }
 
     // Mantem o array ordenado por codigo para habilitar busca binaria
@@ -62,17 +62,17 @@ void inicializar_sistema(void) {
 void finalizar_sistema(void) {
     printf("\n[SISTEMA] Encerrando conexão com o SQLite...\n");
     banco_fechar();
-    printf("[SISTEMA] Recursos liberados com sucesso. Até logo!\n");
+    printf("\n[SISTEMA] Recursos liberados com sucesso. Até logo!\n");
 }
 
 void sistema_cadastrar_produto(void) {
     limpar_tela();
     printf("======================================================\n");
     printf("                CADASTRAR NOVO PRODUTO                \n");
-    printf("======================================================\n\n");
+    printf("======================================================\n");
 
     if (catalogo.total >= MAX_PRODUTOS) {
-        printf("[ERRO] Capacidade máxima atingida (%d produtos).\n", MAX_PRODUTOS);
+        printf("\n[ERRO] Capacidade máxima atingida (%d produtos).\n", MAX_PRODUTOS);
         pausar_console();
         return;
     }
@@ -83,7 +83,7 @@ void sistema_cadastrar_produto(void) {
     // Validacao de Codigo unico
     int cod = 0;
     while (1) {
-        if (!ler_inteiro_seguro("Digite o código do produto (1 a 999999): ", &cod, 1, 999999)) {
+        if (!ler_inteiro_seguro("\nDigite o código do produto (1 a 999999): ", &cod, 1, 999999)) {
             return;
         }
 
@@ -97,7 +97,7 @@ void sistema_cadastrar_produto(void) {
         }
 
         if (existe) {
-            printf("[ERRO] O código %d já está cadastrado. Escolha outro código.\n", cod);
+            printf("\n[ERRO] O código %d já está cadastrado. Escolha outro código.\n", cod);
             continue;
         }
 
@@ -105,7 +105,7 @@ void sistema_cadastrar_produto(void) {
         break;
     }
 
-    ler_string_segura("Nome do produto: ", novo.nome, sizeof(novo.nome));
+    ler_string_segura("\nNome do produto: ", novo.nome, sizeof(novo.nome));
     ler_string_segura("Descrição: ", novo.descricao, sizeof(novo.descricao));
     ler_string_segura("Categoria: ", novo.categoria, sizeof(novo.categoria));
     ler_double_seguro("Preço unitário (R$): ", &novo.preco, 0.01, 1000000.0);
@@ -114,7 +114,7 @@ void sistema_cadastrar_produto(void) {
 
     // Persistencia no SQLite
     if (!banco_inserir_produto(&novo)) {
-        printf("[ERRO] Falha ao persistir produto no banco de dados.\n");
+        printf("\n[ERRO] Falha ao persistir produto no banco de dados.\n");
         pausar_console();
         return;
     }
@@ -139,16 +139,16 @@ void sistema_alterar_produto(void) {
     limpar_tela();
     printf("========================================================\n");
     printf("                ALTERAR DADOS DE PRODUTO                \n");
-    printf("========================================================\n\n");
+    printf("========================================================\n");
 
     if (catalogo.total == 0) {
-        printf("[AVISO] O estoque está vazio. Nenhum produto para alterar.\n");
+        printf("\n[AVISO] O estoque está vazio. Nenhum produto para alterar.\n");
         pausar_console();
         return;
     }
 
     int cod = 0;
-    if (!ler_inteiro_seguro("Digite o código do produto que deseja alterar: ", &cod, 1, 999999)) {
+    if (!ler_inteiro_seguro("\nDigite o código do produto que deseja alterar: ", &cod, 1, 999999)) {
         return;
     }
 
@@ -159,7 +159,7 @@ void sistema_alterar_produto(void) {
 
     int idx = busca_binaria_codigo(catalogo.itens, catalogo.total, cod);
     if (idx == -1) {
-        printf("[ERRO] Produto com código %d não foi encontrado.\n", cod);
+        printf("\n[ERRO] Produto com código %d não foi encontrado.\n", cod);
         pausar_console();
         return;
     }
@@ -171,7 +171,7 @@ void sistema_alterar_produto(void) {
     printf("--------------------------------------------------------------------------------------------\n");
 
     printf("\nInforme os novos dados (Código e Quantidade não são alterados diretamente aqui):\n");
-    ler_string_segura("Novo Nome: ", p->nome, sizeof(p->nome));
+    ler_string_segura("\nNovo Nome: ", p->nome, sizeof(p->nome));
     ler_string_segura("Nova Descrição: ", p->descricao, sizeof(p->descricao));
     ler_string_segura("Nova Categoria: ", p->categoria, sizeof(p->categoria));
     ler_double_seguro("Novo Preço Unitário (R$): ", &p->preco, 0.01, 1000000.0);
@@ -190,16 +190,16 @@ void sistema_excluir_produto(void) {
     limpar_tela();
     printf("=======================================================\n");
     printf("                    EXCLUIR PRODUTO                    \n");
-    printf("=======================================================\n\n");
+    printf("=======================================================\n");
 
     if (catalogo.total == 0) {
-        printf("[AVISO] Nenhum produto cadastrado.\n");
+        printf("\n[AVISO] Nenhum produto cadastrado.\n");
         pausar_console();
         return;
     }
 
     int cod = 0;
-    if (!ler_inteiro_seguro("Digite o código do produto a ser excluído: ", &cod, 1, 999999)) {
+    if (!ler_inteiro_seguro("\nDigite o código do produto a ser excluído: ", &cod, 1, 999999)) {
         return;
     }
 
@@ -209,7 +209,7 @@ void sistema_excluir_produto(void) {
 
     int idx = busca_binaria_codigo(catalogo.itens, catalogo.total, cod);
     if (idx == -1) {
-        printf("[ERRO] Produto com código %d não encontrado.\n", cod);
+        printf("\n[ERRO] Produto com código %d não encontrado.\n", cod);
         pausar_console();
         return;
     }
@@ -219,15 +219,15 @@ void sistema_excluir_produto(void) {
     exibir_linha_produto(&catalogo.itens[idx]);
     printf("--------------------------------------------------------------------------------------------\n");
 
-    if (!confirmar_acao("Confirma a exclusão definitiva deste produto e suas movimentações?")) {
-        printf("[CANCELADO] Operação abortada pelo usuário.\n");
+    if (!confirmar_acao("\nConfirma a exclusão definitiva deste produto e suas movimentações?")) {
+        printf("\n[CANCELADO] Operação abortada pelo usuário.\n");
         pausar_console();
         return;
     }
 
     // Exclusao no banco SQLite
     if (!banco_excluir_produto(cod)) {
-        printf("[ERRO] Falha ao excluir produto no banco de dados.\n");
+        printf("\n[ERRO] Falha ao excluir produto no banco de dados.\n");
         pausar_console();
         return;
     }
@@ -244,12 +244,12 @@ void sistema_excluir_produto(void) {
 
 void sistema_listar_produtos(void) {
     limpar_tela();
-    printf("============================================================================================\n");
-    printf("                            LISTAGEM GERAL DE PRODUTOS EM ESTOQUE                           \n");
-    printf("============================================================================================\n\n");
+    printf("=============================================================================================\n");
+    printf("                            LISTAGEM GERAL DE PRODUTOS EM ESTOQUE                            \n");
+    printf("=============================================================================================\n\n");
 
     if (catalogo.total == 0) {
-        printf("[AVISO] Nenhum produto cadastrado no catálogo.\n");
+        printf("\n[AVISO] Nenhum produto cadastrado no catálogo.\n");
         pausar_console();
         return;
     }
@@ -259,7 +259,7 @@ void sistema_listar_produtos(void) {
         exibir_linha_produto(&catalogo.itens[i]);
     }
     printf("--------------------------------------------------------------------------------------------\n");
-    printf("Total de registros listados: %d produtos.\n", catalogo.total);
+    printf("\nTotal de registros listados: %d produtos.\n", catalogo.total);
 
     pausar_console();
 }
@@ -268,16 +268,16 @@ void sistema_pesquisar_por_codigo(void) {
     limpar_tela();
     printf("========================================================\n");
     printf("      PESQUISAR PRODUTO POR CÓDIGO (BUSCA BINÁRIA)      \n");
-    printf("========================================================\n\n");
+    printf("========================================================\n");
 
     if (catalogo.total == 0) {
-        printf("[AVISO] Nenhum produto cadastrado.\n");
+        printf("\n[AVISO] Nenhum produto cadastrado.\n");
         pausar_console();
         return;
     }
 
     int cod = 0;
-    if (!ler_inteiro_seguro("Digite o código a ser pesquisado: ", &cod, 1, 999999)) {
+    if (!ler_inteiro_seguro("\nDigite o código a ser pesquisado: ", &cod, 1, 999999)) {
         return;
     }
 
@@ -285,7 +285,7 @@ void sistema_pesquisar_por_codigo(void) {
     if (!verificar_ordenado_por_codigo(catalogo.itens, catalogo.total)) {
         printf("\n[ALGORITMO] Detectado vetor desordenado. Executando Insertion Sort por código...\n");
         ordenar_insertion(catalogo.itens, catalogo.total, CRITERIO_CODIGO);
-        printf("[ALGORITMO] Vetor em RAM ordenado. Iniciando busca binária O(log n).\n");
+        printf("\n[ALGORITMO] Vetor em RAM ordenado. Iniciando busca binária O(log n).\n");
     }
 
     int idx = busca_binaria_codigo(catalogo.itens, catalogo.total, cod);
@@ -295,7 +295,7 @@ void sistema_pesquisar_por_codigo(void) {
         exibir_cabecalho_tabela();
         exibir_linha_produto(&catalogo.itens[idx]);
         printf("--------------------------------------------------------------------------------------------\n");
-        printf("Descrição completa: %s\n", catalogo.itens[idx].descricao);
+        printf("\nDescrição completa: %s\n", catalogo.itens[idx].descricao);
     } else {
         printf("\n[RESULTADO] Nenhum produto encontrado com o código %d.\n", cod);
     }
@@ -307,16 +307,16 @@ void sistema_pesquisar_por_nome(void) {
     limpar_tela();
     printf("=========================================================\n");
     printf("        PESQUISAR PRODUTO POR NOME (BUSCA LINEAR)        \n");
-    printf("=========================================================\n\n");
+    printf("=========================================================\n");
 
     if (catalogo.total == 0) {
-        printf("[AVISO] Estoque vazio. Nenhum produto cadastrado.\n");
+        printf("\n[AVISO] Estoque vazio. Nenhum produto cadastrado.\n");
         pausar_console();
         return;
     }
 
     char termo[TAM_NOME];
-    ler_string_segura("Digite o nome ou parte do nome para buscar: ", termo, sizeof(termo));
+    ler_string_segura("\nDigite o nome ou parte do nome para buscar: ", termo, sizeof(termo));
 
     int indices[MAX_PRODUTOS];
     int encontrados = busca_linear_nome(catalogo.itens, catalogo.total, termo, indices, MAX_PRODUTOS);
@@ -339,28 +339,28 @@ void sistema_ordenar_produtos(void) {
     limpar_tela();
     printf("=======================================================\n");
     printf("          ORDENAÇÃO MANUAL DE PRODUTOS EM RAM          \n");
-    printf("=======================================================\n\n");
+    printf("=======================================================\n");
 
     if (catalogo.total <= 1) {
-        printf("[AVISO] Registros insuficientes para ordenação (%d produtos).\n", catalogo.total);
+        printf("\n[AVISO] Registros insuficientes para ordenação (%d produtos).\n", catalogo.total);
         pausar_console();
         return;
     }
 
-    printf("Escolha o Algoritmo Manual de Ordenação em C:\n");
+    printf("\nEscolha o Algoritmo Manual de Ordenação em C:\n\n");
     printf("  1. Insertion Sort (Inserção Direta)\n");
     printf("  2. Bubble Sort    (Flutuação / Bolha)\n");
     printf("  3. Selection Sort (Seleção Direta)\n");
     int opc_algo = 1;
-    ler_inteiro_seguro("Opção de Algoritmo (1-3): ", &opc_algo, 1, 3);
+    ler_inteiro_seguro("\nOpção de Algoritmo (1-3): ", &opc_algo, 1, 3);
 
-    printf("\nEscolha o Critério de Ordenação:\n");
+    printf("\n\nEscolha o Critério de Ordenação:\n\n");
     printf("  1. Código do Produto\n");
     printf("  2. Nome (Alfabético A-Z)\n");
     printf("  3. Preço Unitário (Crescente)\n");
     printf("  4. Quantidade em Estoque (Crescente)\n");
     int opc_crit = 1;
-    ler_inteiro_seguro("Opção de Critério (1-4): ", &opc_crit, 1, 4);
+    ler_inteiro_seguro("\nOpção de Critério (1-4): ", &opc_crit, 1, 4);
 
     CriterioOrdenacao criterio = (CriterioOrdenacao)opc_crit;
 
@@ -393,16 +393,16 @@ void sistema_registrar_movimentacao(void) {
     limpar_tela();
     printf("=========================================================\n");
     printf("            REGISTRAR MOVIMENTAÇÃO DE ESTOQUE            \n");
-    printf("=========================================================\n\n");
+    printf("=========================================================\n");
 
     if (catalogo.total == 0) {
-        printf("[AVISO] Estoque vazio. Cadastre produtos antes de movimentar.\n");
+        printf("\n[AVISO] Estoque vazio. Cadastre produtos antes de movimentar.\n");
         pausar_console();
         return;
     }
 
     int cod = 0;
-    if (!ler_inteiro_seguro("Digite o código do produto a ser movimentado: ", &cod, 1, 999999)) {
+    if (!ler_inteiro_seguro("\nDigite o código do produto a ser movimentado: ", &cod, 1, 999999)) {
         return;
     }
 
@@ -412,7 +412,7 @@ void sistema_registrar_movimentacao(void) {
 
     int idx = busca_binaria_codigo(catalogo.itens, catalogo.total, cod);
     if (idx == -1) {
-        printf("[ERRO] Produto %d não encontrado no sistema.\n", cod);
+        printf("\n[ERRO] Produto %d não encontrado no sistema.\n", cod);
         pausar_console();
         return;
     }
@@ -421,15 +421,15 @@ void sistema_registrar_movimentacao(void) {
     printf("\nProduto Selecionado: %s | Estoque Atual: %d un | Estoque Mín: %d un\n",
            p->nome, p->quantidade, p->estoque_minimo);
 
-    printf("\nSelecione o Tipo de Movimentação:\n");
+    printf("\nSelecione o Tipo de Movimentação:\n\n");
     printf("  1. ENTRADA (Recebimento / Compra)\n");
     printf("  2. SAÍDA   (Venda / Baixa / Descarte)\n");
     int tipo_int = 1;
-    ler_inteiro_seguro("Tipo (1 ou 2): ", &tipo_int, 1, 2);
+    ler_inteiro_seguro("\nTipo (1 ou 2): ", &tipo_int, 1, 2);
     TipoMovimentacao tipo = (TipoMovimentacao)tipo_int;
 
     int qtd = 0;
-    ler_inteiro_seguro("Quantidade a movimentar (> 0): ", &qtd, 1, 1000000);
+    ler_inteiro_seguro("\nQuantidade a movimentar (> 0): ", &qtd, 1, 1000000);
 
     // Validacao de saldo previa para saidas
     if (tipo == MOV_SAIDA && qtd > p->quantidade) {
@@ -440,7 +440,7 @@ void sistema_registrar_movimentacao(void) {
     }
 
     char observacao[TAM_OBS];
-    ler_string_segura("Observação/Justificativa (Ex: NF 1045, Venda 201): ", observacao, sizeof(observacao));
+    ler_string_segura("\nObservação/Justificativa (Ex: NF 1045, Venda 201): ", observacao, sizeof(observacao));
 
     int novo_saldo = (tipo == MOV_ENTRADA) ? (p->quantidade + qtd) : (p->quantidade - qtd);
 
@@ -455,10 +455,10 @@ void sistema_registrar_movimentacao(void) {
     atualizar_estoque(p, qtd, tipo);
 
     printf("\n[SUCESSO TRANSACIONAL] Movimentação confirmada e gravada no SQLite!\n");
-    printf("Novo saldo do produto '%s': %d unidades.\n", p->nome, p->quantidade);
+    printf("\nNovo saldo do produto '%s': %d unidades.\n", p->nome, p->quantidade);
 
     if (p->quantidade <= p->estoque_minimo) {
-        printf("[ALERTA DE SEGURANÇA] ATENÇÃO: O produto atingiu ou está abaixo do Estoque Mínimo (%d un)!\n",
+        printf("\n[ALERTA DE SEGURANÇA] ATENÇÃO: O produto atingiu ou está abaixo do Estoque Mínimo (%d un)!\n",
                p->estoque_minimo);
     }
 
@@ -483,9 +483,9 @@ void sistema_alerta_estoque_baixo(void) {
 
     printf("--------------------------------------------------------------------------------------------\n");
     if (criticos == 0) {
-        printf("[STATUS] Excelente! Nenhum produto está em nível crítico de estoque.\n");
+        printf("\n[STATUS] Excelente! Nenhum produto está em nível crítico de estoque.\n");
     } else {
-        printf("[ALERTA CRÍTICO] Foram identificados %d produto(s) demandando reposição imediata!\n", criticos);
+        printf("\n[ALERTA CRÍTICO] Foram identificados %d produto(s) demandando reposição imediata!\n", criticos);
     }
 
     pausar_console();
@@ -507,11 +507,11 @@ void sistema_calcular_valor_total(void) {
 
     printf("Total de Tipos de Produtos Cadastrados : %d produtos\n", catalogo.total);
     printf("Total de Unidades Físicas em Estoque   : %ld unidades\n", total_unidades);
-    printf("Valor Patrimonial Consolidado (R$)    : R$ %.2f\n", valor_total);
+    printf("Valor Patrimonial Consolidado (R$)     : R$ %.2f\n", valor_total);
     if (total_unidades > 0) {
-        printf("Preço Médio Ponderado por Item        : R$ %.2f\n", valor_total / (double)total_unidades);
+        printf("Preço Médio Ponderado por Item         : R$ %.2f\n", valor_total / (double)total_unidades);
     }
-    printf("========================================================\n");
+    printf("\n========================================================\n");
 
     pausar_console();
 }
@@ -520,22 +520,22 @@ void sistema_matriz_movimentacoes_mensais(void) {
     limpar_tela();
     printf("===================================================================================================\n");
     printf("                    MATRIZ 2D DE MOVIMENTAÇÃO POR PERÍODO (PRODUTOS X 12 MESES)                    \n");
-    printf("===================================================================================================\n\n");
+    printf("===================================================================================================\n");
 
     if (catalogo.total == 0) {
-        printf("[AVISO] Nenhum produto em estoque para processamento matricial.\n");
+        printf("\n[AVISO] Nenhum produto em estoque para processamento matricial.\n");
         pausar_console();
         return;
     }
 
     int ano = 2026;
-    ler_inteiro_seguro("Informe o ano de análise da movimentação (ex: 2026): ", &ano, 2000, 2099);
+    ler_inteiro_seguro("\nInforme o ano de análise da movimentação (ex: 2026): ", &ano, 2000, 2099);
 
     // Matriz Bidimensional C11: Linhas = Produtos, Colunas = 12 Meses
     static int matriz_mov[MAX_PRODUTOS][MESES_ANO];
 
     if (!banco_carregar_matriz_movimentacoes(ano, matriz_mov, catalogo.itens, catalogo.total)) {
-        printf("[ERRO] Falha ao processar matriz de movimentação.\n");
+        printf("\n[ERRO] Falha ao processar matriz de movimentação.\n");
         pausar_console();
         return;
     }
@@ -550,24 +550,24 @@ void sistema_matriz_movimentacoes_mensais(void) {
 
     for (int i = 0; i < catalogo.total; i++) {
         int saldo_anual_produto = 0;
-        printf("%-18.18s | ", catalogo.itens[i].nome);
+        printf("%-18.18s  | ", catalogo.itens[i].nome);
         for (int m = 0; m < MESES_ANO; m++) {
             int val = matriz_mov[i][m];
             printf("%4d ", val);
             saldo_anual_produto += val;
             soma_meses[m] += val;
         }
-        printf("| %+6d\n", saldo_anual_produto);
+        printf(" | %+6d\n", saldo_anual_produto);
         balanco_geral += saldo_anual_produto;
     }
 
     printf("----------------------------------------------------------------------------------------------------\n");
-    printf("%-18s | ", "TOTAL LÍQ. DO MÊS");
+    printf("%-18s  | ", "TOTAL LÍQ. DO MÊS");
     for (int m = 0; m < MESES_ANO; m++) {
         printf("%4d ", soma_meses[m]);
     }
-    printf("| %+6d\n", balanco_geral);
-    printf("====================================================================================================\n");
+    printf(" | %+6d\n", balanco_geral);
+    printf("\n====================================================================================================\n");
 
     pausar_console();
 }
@@ -576,17 +576,17 @@ void sistema_historico_movimentacoes(void) {
     limpar_tela();
     printf("========================================================================================================\n");
     printf("                           CONSULTA DE HISTÓRICO DE MOVIMENTAÇÕES (AUDITORIA)                           \n");
-    printf("========================================================================================================\n\n");
+    printf("========================================================================================================\n");
 
-    printf("Opções de Consulta:\n");
+    printf("\nOpções de Consulta:\n\n");
     printf("  1. Ver histórico de um produto específico\n");
     printf("  2. Ver últimas movimentações de todos os produtos\n");
     int opc = 1;
-    ler_inteiro_seguro("Opção (1 ou 2): ", &opc, 1, 2);
+    ler_inteiro_seguro("\nOpção (1 ou 2): ", &opc, 1, 2);
 
     int filtro_cod = 0;
     if (opc == 1) {
-        ler_inteiro_seguro("Digite o código do produto para filtrar: ", &filtro_cod, 1, 999999);
+        ler_inteiro_seguro("\nDigite o código do produto para filtrar: ", &filtro_cod, 1, 999999);
     }
 
     banco_listar_historico_movimentacoes(filtro_cod);
@@ -616,10 +616,10 @@ void menu_principal(void) {
         printf("   10. Calcular Valor Total e Indicadores Financeiros\n");
         printf("   11. Matriz 2D de Movimentações Mensais (Produtos x 12 Meses)\n");
         printf("   12. Consultar Histórico de Movimentações / Auditoria\n\n");
-        printf("    0. Sair do Sistema\n\n");
-        printf("===================================================================\n\n");
+        printf("    0. Sair do Sistema\n");
+        printf("\n===================================================================\n");
 
-        if (!ler_inteiro_seguro("Escolha uma opção (0 - 12): ", &opcao, 0, 12)) {
+        if (!ler_inteiro_seguro("\nEscolha uma opção (0 - 12): ", &opcao, 0, 12)) {
             continue;
         }
 
