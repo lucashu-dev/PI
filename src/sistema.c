@@ -557,7 +557,7 @@ void sistema_matriz_movimentacoes_mensais(void) {
             saldo_anual_produto += val;
             soma_meses[m] += val;
         }
-        printf("  | %+6d\n", saldo_anual_produto);
+        printf(" | %+6d\n", saldo_anual_produto);
         balanco_geral += saldo_anual_produto;
     }
 
@@ -566,7 +566,7 @@ void sistema_matriz_movimentacoes_mensais(void) {
     for (int m = 0; m < MESES_ANO; m++) {
         printf("%4d ", soma_meses[m]);
     }
-    printf("  | %+6d\n", balanco_geral);
+    printf(" | %+6d\n", balanco_geral);
     printf("\n====================================================================================================\n");
 
     pausar_console();
