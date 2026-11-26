@@ -23,7 +23,7 @@ static void exibir_cabecalho_tabela(void) {
 
 static void exibir_linha_produto(const Produto *p) {
     const char *status = (p->quantidade <= p->estoque_minimo) ? "[ALERTA: BAIXO]" : "NORMAL";
-    printf("%-6d | %-24.24s | %-14.14s | %-10.2f | %-8d | %-14d | %-15s\n",
+    printf("%-6d | %-24.24s  | %-14.14s  | %-10.2f  | %-8d  | %-14d  | %-15s\n",
            p->codigo, p->nome, p->categoria, p->preco, p->quantidade, p->estoque_minimo, status);
 }
 
@@ -259,7 +259,7 @@ void sistema_listar_produtos(void) {
         exibir_linha_produto(&catalogo.itens[i]);
     }
     printf("--------------------------------------------------------------------------------------------\n");
-    printf("\nTotal de registros listados: %d produtos.\n", catalogo.total);
+    printf("\n\nTotal de registros listados: %d produtos.\n", catalogo.total);
 
     pausar_console();
 }
@@ -557,7 +557,7 @@ void sistema_matriz_movimentacoes_mensais(void) {
             saldo_anual_produto += val;
             soma_meses[m] += val;
         }
-        printf(" | %+6d\n", saldo_anual_produto);
+        printf("  | %+6d\n", saldo_anual_produto);
         balanco_geral += saldo_anual_produto;
     }
 
@@ -566,7 +566,7 @@ void sistema_matriz_movimentacoes_mensais(void) {
     for (int m = 0; m < MESES_ANO; m++) {
         printf("%4d ", soma_meses[m]);
     }
-    printf(" | %+6d\n", balanco_geral);
+    printf("  | %+6d\n", balanco_geral);
     printf("\n====================================================================================================\n");
 
     pausar_console();
